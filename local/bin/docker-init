@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -e
+
+echo "==> Installing required packages"
+docker-install -r -u build-base linux-headers git patch autoconf automake libtool m4 cmake bash python2 python2-dev python3 python3-dev
+echo "==> OK"
+echo
+
+echo "==> Installing pip,virtualenv"
+wget --no-check-certificate -q -O - https://bootstrap.pypa.io/get-pip.py | python2
+pip2 install virtualenv -i http://ftp.daumkakao.com/pypi/simple --trusted-host ftp.daumkakao.com
+wget --no-check-certificate -q -O - https://bootstrap.pypa.io/get-pip.py | python3
+echo "==> OK"
+echo
+
+echo "==> Uninstalling unnecessary packages"
+docker-install -d -c
+echo "==> OK"
+echo
+
