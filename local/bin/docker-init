@@ -3,7 +3,7 @@
 set -e
 
 echo "==> Installing required packages"
-docker-install -r -u build-base linux-headers git patch autoconf automake libtool m4 cmake bash python2 python2-dev python3 python3-dev
+docker-install -r -u build-base linux-headers git patch autoconf automake libtool m4 cmake bash wget python2 python2-dev python3 python3-dev
 echo "==> OK"
 echo
 
