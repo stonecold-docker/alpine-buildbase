@@ -3,7 +3,9 @@
 set -e
 
 echo "==> Installing required packages"
-docker-install -r -u build-base linux-headers git patch autoconf automake libtool m4 cmake bash wget python2 python2-dev python3 python3-dev
+PKG_LIB="build-base linux-headers git patch autoconf automake libtool m4 cmake bash wget python2 python2-dev python3 python3-dev"
+PKG_DEV=""
+docker-install -r -u ${PKG_LIB} ${PKG_DEV}
 echo "==> OK"
 echo
 
@@ -15,7 +17,7 @@ echo "==> OK"
 echo
 
 echo "==> Uninstalling unnecessary packages"
-docker-install -d -c
+docker-install -d -c ${PKG_DEV}
 echo "==> OK"
 echo
 
