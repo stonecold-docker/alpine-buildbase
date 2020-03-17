@@ -2,22 +2,22 @@
 
 set -e
 
-echo "==> Installing required packages"
+echo "[$(TZ="GMT-9" date '+%Y-%m-%d %H:%M:%S')] ==> Installing required packages"
 PKG_LIB="build-base linux-headers git patch autoconf automake libtool m4 cmake bash wget python2 python2-dev python3 python3-dev"
 PKG_DEV=""
 docker-install -r -u ${PKG_LIB} ${PKG_DEV}
-echo "==> OK"
+echo "[$(TZ="GMT-9" date '+%Y-%m-%d %H:%M:%S')] ==> OK"
 echo
 
-echo "==> Installing pip,virtualenv"
+echo "[$(TZ="GMT-9" date '+%Y-%m-%d %H:%M:%S')] ==> Installing pip,virtualenv"
 wget --no-check-certificate -q -O - https://bootstrap.pypa.io/get-pip.py | python2
 pip2 install virtualenv -i http://ftp.daumkakao.com/pypi/simple --trusted-host ftp.daumkakao.com
 wget --no-check-certificate -q -O - https://bootstrap.pypa.io/get-pip.py | python3
-echo "==> OK"
+echo "[$(TZ="GMT-9" date '+%Y-%m-%d %H:%M:%S')] ==> OK"
 echo
 
-echo "==> Uninstalling unnecessary packages"
+echo "[$(TZ="GMT-9" date '+%Y-%m-%d %H:%M:%S')] ==> Uninstalling unnecessary packages"
 docker-install -d -c ${PKG_DEV}
-echo "==> OK"
+echo "[$(TZ="GMT-9" date '+%Y-%m-%d %H:%M:%S')] ==> OK"
 echo
 
