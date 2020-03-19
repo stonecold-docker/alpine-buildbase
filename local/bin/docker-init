@@ -3,16 +3,16 @@
 set -e
 
 echo "[$(TZ="GMT-9" date '+%Y-%m-%d %H:%M:%S')] ==> Installing required packages"
-PKG_LIB="build-base linux-headers git patch autoconf automake libtool m4 cmake bash grep wget python2 python2-dev python3 python3-dev"
+PKG_LIB="alpine-sdk linux-headers patch diffutils autoconf automake libtool m4 cmake bash grep wget python2 python2-dev python3 python3-dev py3-virtualenv"
 PKG_DEV=""
 docker-install -r -u ${PKG_LIB} ${PKG_DEV}
 echo "[$(TZ="GMT-9" date '+%Y-%m-%d %H:%M:%S')] ==> OK"
 echo
 
 echo "[$(TZ="GMT-9" date '+%Y-%m-%d %H:%M:%S')] ==> Installing pip,virtualenv"
+apk add --virtual py2-pip
+apk add --virtual py2-setuptools
 wget --no-check-certificate -q -O - https://bootstrap.pypa.io/get-pip.py | python2
-pip2 install virtualenv -i http://ftp.daumkakao.com/pypi/simple --trusted-host ftp.daumkakao.com
-wget --no-check-certificate -q -O - https://bootstrap.pypa.io/get-pip.py | python3
 echo "[$(TZ="GMT-9" date '+%Y-%m-%d %H:%M:%S')] ==> OK"
 echo
 
