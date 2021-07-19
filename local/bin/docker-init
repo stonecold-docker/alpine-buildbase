@@ -9,6 +9,32 @@ docker-install -r -u ${PKG_LIB} ${PKG_DEV}
 echo "[$(TZ="GMT-9" date '+%Y-%m-%d %H:%M:%S')] ==> OK"
 echo
 
+echo "[$(TZ="GMT-9" date '+%Y-%m-%d %H:%M:%S')] ==> Installing musl for hub.docker.comd"
+LD_FULL_PATH=
+case "$(uname -m)" in
+	x86_64)
+		ALPINE_ARCH=x86_64
+		;;
+	aarch64)
+		ALPINE_ARCH=aarch64
+		;;
+	armv7l)
+		ALPINE_ARCH=armv7
+		;;
+esac
+mkdir -p /build/musl
+cd /build/musl
+wget --no-check-certificate -q -O - https://mirror.xtom.com.hk/alpine/v3.13/main/${ALPINE_ARCH}/musl-1.2.2-r1.apk | tar zxf -
+wget --no-check-certificate -q -O - https://mirror.xtom.com.hk/alpine/v3.13/main/${ALPINE_ARCH}/libacl-2.2.53-r0.apk | tar zxf -
+
+mkdir -p /lib/musl
+mv lib/* /lib/musl/
+cat << EOF > /etc/profile.d/muslbuild.sh
+export LD_LIBRARY_PATH="/lib/musl:/lib:/usr/lib"
+EOF
+echo "[$(TZ="GMT-9" date '+%Y-%m-%d %H:%M:%S')] ==> OK"
+echo
+
 echo "[$(TZ="GMT-9" date '+%Y-%m-%d %H:%M:%S')] ==> Installing pip"
 wget --no-check-certificate -q -O - https://bootstrap.pypa.io/pip/2.7/get-pip.py | python2
 wget --no-check-certificate -q -O - https://bootstrap.pypa.io/get-pip.py | python3
