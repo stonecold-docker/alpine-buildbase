@@ -32,6 +32,8 @@ mv lib/* /lib/musl/
 cat << EOF > /etc/profile.d/muslbuild.sh
 export LD_LIBRARY_PATH="/lib/musl:/lib:/usr/lib"
 EOF
+cd /
+rm -rf /build
 echo "[$(TZ="GMT-9" date '+%Y-%m-%d %H:%M:%S')] ==> OK"
 echo
 
